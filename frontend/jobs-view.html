@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matches - Job Matching Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Job Matches</h1>
+            <button id="backButton" class="btn btn-secondary">Back to Login</button>
+        </div>
+        
+        <div id="loadingIndicator" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading job matches...</p>
+        </div>
+        
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+        
+        <div id="jobsTableContainer" style="display: none;">
+            <table class="jobs-table">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Required Skills</th>
+                        <th>Min Years Experience</th>
+                        <th>Match Score</th>
+                    </tr>
+                </thead>
+                <tbody id="jobsTableBody">
+                    <!-- Jobs will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="noJobsMessage" class="info-message" style="display: none;">
+            <p>No jobs found. Please check back later.</p>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
+
