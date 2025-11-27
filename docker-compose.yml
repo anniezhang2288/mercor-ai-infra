@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/job_matching.db:/app/job_matching.db
+    environment:
+      - DATABASE_URL=sqlite:///./job_matching.db
+
