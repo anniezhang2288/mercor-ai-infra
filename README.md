@@ -216,26 +216,102 @@ Try entering candidate IDs 1-10 in the frontend to see their job matches!
 
 ## Running Tests
 
+### Option 1: Run Tests in Docker Container (Recommended)
+
+Since the container has all dependencies installed, this is the easiest way:
+
+**Note**: You may need to rebuild the container to include test files:
+```bash
+docker stop job-matching-backend
+docker rm job-matching-backend
+docker build -f backend/Dockerfile -t job-matching-backend .
+docker run -d -p 8001:8000 --name job-matching-backend job-matching-backend
+```
+
+Then run tests:
+```bash
+# Run all tests
+docker exec job-matching-backend pytest
+
+# Run with verbose output (shows each test)
+docker exec job-matching-backend pytest -v
+
+# Run specific test file
+docker exec job-matching-backend pytest tests/test_matching.py
+docker exec job-matching-backend pytest tests/test_crud.py
+
+# Run specific test function
+docker exec job-matching-backend pytest tests/test_matching.py::test_perfect_match -v
+
+# Run with output (shows print statements)
+docker exec job-matching-backend pytest -v -s
+```
+
+### Option 2: Run Tests Locally
+
 1. **Navigate to backend directory:**
    ```bash
    cd backend
    ```
 
-2. **Run all tests:**
+2. **Install dependencies (if not already installed):**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run all tests:**
    ```bash
    pytest
    ```
 
-3. **Run with verbose output:**
+4. **Run with verbose output:**
    ```bash
    pytest -v
    ```
 
-4. **Run specific test file:**
+5. **Run specific test file:**
    ```bash
    pytest tests/test_matching.py
    pytest tests/test_crud.py
    ```
+
+6. **Run specific test function:**
+   ```bash
+   pytest tests/test_matching.py::test_perfect_match -v
+   ```
+
+7. **Run tests with output:**
+   ```bash
+   pytest -v -s  # -s shows print statements
+   ```
+
+### Test Files
+
+- **`tests/test_matching.py`**: Tests for the match algorithm
+  - Perfect match scenario
+  - Partial match scenario
+  - Low match scenario
+  - No skills match
+  - Zero experience required
+  - Sorting verification
+
+- **`tests/test_crud.py`**: Tests for CRUD operations
+  - Create, Read, Update, Delete for jobs
+  - Create, Read, Update, Delete for candidates
+  - Error cases (404, validation)
+
+### Expected Output
+
+When tests pass, you should see:
+```
+======================== test session starts ========================
+collected 15 items
+
+tests/test_crud.py ........                                    [ 53%]
+tests/test_matching.py ......                                  [100%]
+
+======================== 15 passed in X.XXs ========================
+```
 
 ## Project Structure
 

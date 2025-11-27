@@ -125,6 +125,6 @@ def test_get_job_matches_sorting():
     # Job 1 should have second (2/3 skills)
     # Job 3 should have lowest (1/1 but only one skill)
     assert len(matches) == 3
-    assert matches[0]["match_score"] >= matches[1]["match_score"]
-    assert matches[1]["match_score"] >= matches[2]["match_score"]
+    assert matches[0]["matchScore"] >= matches[1]["matchScore"]
+    assert matches[1]["matchScore"] >= matches[2]["matchScore"]
 

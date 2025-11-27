@@ -1,5 +1,5 @@
 """Pydantic schemas for request/response validation."""
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 
 
@@ -27,10 +27,9 @@ class JobUpdate(BaseModel):
 
 class JobResponse(JobBase):
     """Schema for job response."""
+    model_config = ConfigDict(from_attributes=True)
+    
     id: int
-
-    class Config:
-        from_attributes = True
 
 
 # Candidate Schemas
@@ -55,26 +54,18 @@ class CandidateUpdate(BaseModel):
 
 class CandidateResponse(CandidateBase):
     """Schema for candidate response."""
+    model_config = ConfigDict(from_attributes=True)
+    
     id: int
-
-    class Config:
-        from_attributes = True
 
 
 # Match Schema
 class JobMatch(BaseModel):
     """Schema for job match response."""
-    jobId: int
-    title: str
-    requiredSkills: List[str]
-    minYearsExperience: int
-    matchScore: int = Field(..., ge=0, le=100, description="Match score from 0 to 100")
-
-    class Config:
-        from_attributes = True
-        populate_by_name = True  # Allow both alias and field name
-        # Serialize using field names (camelCase) instead of aliases
-        json_schema_extra = {
+    model_config = ConfigDict(
+        from_attributes=True,
+        populate_by_name=True,  # Allow both alias and field name
+        json_schema_extra={
             "example": {
                 "jobId": 1,
                 "title": "Software Engineer",
@@ -83,4 +74,11 @@ class JobMatch(BaseModel):
                 "matchScore": 85
             }
         }
+    )
+    
+    jobId: int
+    title: str
+    requiredSkills: List[str]
+    minYearsExperience: int
+    matchScore: int = Field(..., ge=0, le=100, description="Match score from 0 to 100")
 

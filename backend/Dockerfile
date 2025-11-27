@@ -9,6 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY backend/app/ ./app/
 
+# Copy tests
+COPY backend/tests/ ./tests/
+
 # Copy frontend files
 COPY frontend/ ./frontend/
 
